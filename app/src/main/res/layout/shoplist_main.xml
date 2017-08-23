@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/shoplist_main"
+
+
+    >
+
+    <EditText
+        android:id="@+id/add_product_shoplist_main"
+        android:layout_width="125dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="15dp"
+        android:text=""
+        android:textSize="15dp"
+        android:singleLine="true"
+        android:imeOptions="actionNext"
+        />
+    <EditText
+        android:id="@+id/add_price_shoplist_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/add_product_shoplist_main"
+        android:layout_alignBottom="@+id/add_product_shoplist_main"
+        android:layout_marginEnd="15dp"
+        android:layout_toStartOf="@+id/buton_add_product_shoplist_main"
+        android:ems="5"
+        android:inputType="number"
+        android:imeOptions="actionDone"/>
+
+
+    <Button
+        android:id="@+id/buton_add_product_shoplist_main"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignEnd="@+id/total_money_shoplist_main"
+        android:layout_alignTop="@+id/add_product_shoplist_main"
+        android:text=" + "
+        android:textSize="20sp"
+        />
+
+    <TextView
+        android:id="@+id/products_shoplist_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/add_product_shoplist_main"
+        android:layout_below="@+id/add_product_shoplist_main"
+        android:text="Products"
+        android:textSize="17dp"
+
+
+        />
+
+    <TextView
+        android:id="@+id/pice_shoplist_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/products_shoplist_main"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="75dp"
+        android:text="Price"
+        android:textSize="17sp" />
+    <ListView
+
+        android:id="@+id/listview_product_shoplist_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/total_price_shoplist_main"
+        android:layout_below="@id/products_shoplist_main"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:dividerHeight="5dp"
+
+        />
+
+
+    <TextView
+        android:id="@+id/total_price_shoplist_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="11dp"
+        android:layout_toStartOf="@+id/total_money_shoplist_main"
+        android:text="Total : "
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/total_money_shoplist_main"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/total_price_shoplist_main"
+        android:layout_alignBottom="@+id/total_price_shoplist_main"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="30dp"
+        android:text=" 0 "
+        android:textSize="20sp" />
+
+
+
+
+</RelativeLayout>

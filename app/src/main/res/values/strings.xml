@@ -1,8 +1,19 @@
 <resources>
-    <string name="app_name">My Application</string>
-
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
-
     <string name="action_settings">Settings</string>
+    <string name="app_name">Swift</string>
+    <string name="FACEBOOK_APP_ID">1572132719526824</string>
+    <string name="ACCOUNT_KIT_CLIENT_TOKEN">8ac922915dcdb4b1935ee74894d8b430</string>
+    <string name="ak_login_protocol_scheme">ak1572132719526824</string>
+    <string name="login_email_label">Login with Email</string>
+    <string name="login_phone_label">Login with Phone Number</string>
+    <string name="account">Account</string>
+    <string name="id_label">Account ID</string>
+    <string name="phone_label">Phone Number</string>
+    <string name="email_label">Email</string>
+    <string name="logout_label">Log Out</string>
+    <string name="title_delete">Delete</string>
+    <string name="title_change">Change</string>
+
 </resources>
