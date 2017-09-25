@@ -28,11 +28,12 @@
 
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".login.AccountActivity"></activity>
-<activity android:name=".shoppinglist.ShoppingList"></activity>
+
         <activity android:name=".login.LoginActivity"
     android:screenOrientation="portrait"
     android:theme="@style/FullscreenTheme">
     <intent-filter>
+        <category android:name="android.intent.category.DEFAULT"/>
         <action android:name="android.intent.action.MAIN" />
         <data android:scheme="@string/ak_login_protocol_scheme" />
         <category android:name="android.intent.category.LAUNCHER" />

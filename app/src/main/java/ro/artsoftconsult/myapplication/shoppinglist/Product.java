@@ -2,12 +2,12 @@ package ro.artsoftconsult.myapplication.shoppinglist;
 
 public class Product {
     private String name;
-private int price;
+private double price;
 
 
     //Constructor
 
-    public Product( String name, int price ) {
+    public Product( String name, double price ) {
         this.price = price;
         this.name = name;
 
@@ -24,11 +24,11 @@ private int price;
         this.name = name;
     }
 
-    public int getPrice() {
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 

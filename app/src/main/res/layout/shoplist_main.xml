@@ -28,7 +28,7 @@
         android:layout_marginEnd="15dp"
         android:layout_toStartOf="@+id/buton_add_product_shoplist_main"
         android:ems="5"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:imeOptions="actionDone"/>
 
 

@@ -1,5 +1,6 @@
 package ro.artsoftconsult.myapplication.login;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -47,6 +48,12 @@ public class AccountActivity extends AppCompatActivity {
     private ImageView profileImage;// ImageView
      private  Bitmap bmp;
     private ImageView profileImageNavHeader;
+    private static final int PICK_FROM_CAMERA = 1;
+    private static final int PICK_FROM_GALLERY = 2;
+    ImageView imgview;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,58 +61,47 @@ public class AccountActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account);
         FontHelper.setCustomTypeface(findViewById(R.id.view_root));
 
+
+        accountActivity();
+
+
         id = (TextView) findViewById(R.id.id_activity_account);
         infoLabel = (TextView) findViewById(R.id.info_label_activity_account);
         info = (TextView) findViewById(R.id.info_activity_account);
         profileImage = (ImageView)findViewById(R.id.profile_image_account);
      profileImageNavHeader= (ImageView)findViewById(R.id.profile_image_nav_header);
+        imgview = (ImageView) findViewById(R.id.profile_image_account);
 
-        accountActivity();
 
 
-        profileImage.setOnClickListener(new OnClickListener(){
-            public void onClick(View arg0){
-             openGallery(); }
-                });
-                }
 
-    private void openGallery() {
-                       Intent photoPickerIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                  photoPickerIntent.setType("image/*");
-                     startActivityForResult(photoPickerIntent, 1);
-                                     }
+    }
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-    protected void onActivityResult(int requestCode, int resultcode, Intent intent)
-{
-super.onActivityResult(requestCode, resultcode, intent);
+        if (requestCode == PICK_FROM_CAMERA) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                Bitmap photo = extras.getParcelable("data");
+                imgview.setImageBitmap(photo);
 
- if (requestCode == 1)
- {
- if (intent != null && resultcode == RESULT_OK)
-  {
+            }
+        }
 
-  Uri selectedImage = intent.getData();
+        if (requestCode == PICK_FROM_GALLERY) {
+            Bundle extras2 = data.getExtras();
+            if (extras2 != null) {
+                Bitmap photo = extras2.getParcelable("data");
+                imgview.setImageBitmap(photo);
 
-  String[] filePathColumn = {MediaStore.Images.Media.DATA};
-  Cursor cursor = getContentResolver().query(selectedImage, filePathColumn, null, null, null);
- cursor.moveToFirst();
- int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-  String filePath = cursor.getString(columnIndex);
- cursor.close();
- if(bmp != null && !bmp.isRecycled()) {
-     bmp = null;
- }
- bmp = BitmapFactory.decodeFile(filePath);
-profileImage.setBackgroundResource(0);
-profileImage.setImageBitmap(bmp);
-//      profileImageNavHeader.setImageBitmap(bmp);
+            }
+        }
+    }
 
- }
-else
-{
- Log.d("Status:", "Photopicker canceled"); }
-}
- }
+
+
+
+
+
 
     private void accountActivity() {
            AccountKit.getCurrentAccount(new AccountKitCallback<Account>() {

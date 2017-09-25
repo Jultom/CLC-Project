@@ -2,12 +2,14 @@ package ro.artsoftconsult.myapplication;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -30,9 +32,8 @@ import com.google.i18n.phonenumbers.Phonenumber;
 import java.util.Locale;
 
 import ro.artsoftconsult.myapplication.login.AccountActivity;
+import ro.artsoftconsult.myapplication.login.LoginActivity;
 import ro.artsoftconsult.myapplication.shoppinglist.ShoppingList;
-
-import static android.R.attr.id;
 
 
 public class MainActivity extends AppCompatActivity
@@ -162,9 +163,8 @@ private ImageView imageView;
 
         } else if (id == R.id.nav_manage) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_logout) {
+            alertDialogLogOut();
 
         }
 
@@ -172,12 +172,19 @@ private ImageView imageView;
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-    protected void launchShopActivity() {
-        Intent intent = new Intent(this,ShoppingList.class);
+
+    public void onLogout() {
+        // logout of Account Kit
+        AccountKit.logOut();
+        launchLoginActivity();
+    }
+
+    private void launchLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
         finish();
-
     }
+
 
         private void loadFragment(Fragment fragment) {
             // create a FragmentManager
@@ -188,6 +195,39 @@ private ImageView imageView;
             fragmentTransaction.replace(R.id.content_main, fragment);
             fragmentTransaction.commit(); // save the changes
         }
+    public void alertDialogLogOut() {
 
+
+        final AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+               MainActivity.this);
+        alertDialogBuilder.setTitle("Log Out");
+        // set dialog message
+        alertDialogBuilder
+                .setMessage("Are you sure  you want to log out ?")
+                .setCancelable(false)
+
+                .setPositiveButton("Yes",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(
+                                    DialogInterface dialog, int id) {
+                                          onLogout();
+
+                            }
+                        })
+                .setNeutralButton("No",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(
+                                    DialogInterface dialog, int id) {
+
+                            }
+                        });
+
+
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+    }
 }
 

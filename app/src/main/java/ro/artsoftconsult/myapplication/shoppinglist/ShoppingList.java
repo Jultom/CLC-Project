@@ -13,6 +13,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
@@ -32,7 +34,7 @@ import ro.artsoftconsult.myapplication.R;
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 
 public class ShoppingList extends Fragment {
-    int total = 0,a=1;
+    double total = 0;
     private List<Product> productList = new ArrayList<>();
     private ListAdapter mAdapter;
     private EditText textNou;
@@ -54,16 +56,14 @@ public class ShoppingList extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-         if(a!=0) {
-             alertDialogHelep();
-                   a++;
-         }
+
         View converView = inflater.inflate(R.layout.shoplist_main,container,false);
         prepareProduse(converView);
 
         listView = (ListView) converView.findViewById(R.id.listview_product_shoplist_main);
         mAdapter= new ListAdapter(productList, ShoppingList.this);
         listView.setAdapter(mAdapter);
+        setHasOptionsMenu(false);
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -74,9 +74,9 @@ public class ShoppingList extends Fragment {
                 return false;
             }
         });
+
         return converView;
     }
-
 
 
     private void prepareProduse(View convertView) {
@@ -108,16 +108,16 @@ public class ShoppingList extends Fragment {
 
     private void addLineToListView() {
 
-        int numar;
+        double numar;
 
         if (textNou.getText().toString() != null && !"".equals(textNou.getText().toString())) {
             {
                 String newItems = textNou.getText().toString();
                 if (numarNou.getText().toString() != null && !"".equals(numarNou.getText().toString()))
-                    numar = Integer.parseInt(numarNou.getText().toString());
+                    numar = Double.parseDouble(numarNou.getText().toString());
                 else {
                     numar = 0;
-                    Toast.makeText(getActivity(), "Nu ati introdus nici un pret ", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "You haven't entered any price ", Toast.LENGTH_SHORT).show();
                 }
 
                 Product product = new Product(newItems, numar);
@@ -126,14 +126,14 @@ public class ShoppingList extends Fragment {
                 textNou.setText("");
                 numarNou.setText("");
                 total = total + numar;
-                priceTextView.setText("" + total);
+                priceTextView.setText(String.format("%.2f",total));
                 hideSoftKeyboard(getActivity());
                 scrollMyListViewToBottom();
 
             }
 
         } else {
-            Toast.makeText(getActivity(), "Nu ati introdus nici un produs ", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "You haven't entered any product ", Toast.LENGTH_SHORT).show();
 
         }
 
@@ -150,28 +150,9 @@ public class ShoppingList extends Fragment {
         });
     }
 
-    public void alertDialogHelep()
-    {AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-        alertDialog.setTitle("Help");
-        alertDialog.setMessage("hjkjhjjkjlk");
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, "OK",
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-
-                        dialog.dismiss();
-                    }
-                });
-
-
-        alertDialog.show();
-
-    }
-
-
-
 
     public void displayAlertDialogModify(final int position) {
-        final int number;
+        final double number;
         String name;
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View alertDialogView = inflater.inflate(R.layout.edit_product, null);
@@ -198,9 +179,9 @@ public class ShoppingList extends Fragment {
                                     DialogInterface dialog, int id) {
 
 
-                                int newNumber;
+                                double newNumber;
                                 if (productPrice.getText().toString() != null && !"".equals(productPrice.getText().toString())) {
-                                    newNumber = Integer.parseInt(productPrice.getText().toString());
+                                    newNumber = Double.parseDouble(productPrice.getText().toString());
                                 } else
                                     newNumber = 0;
                                 String newName = productName.getText().toString();
@@ -211,7 +192,7 @@ public class ShoppingList extends Fragment {
                                 Product product = new Product(newName, newNumber);
                                 productList.set(position, product);
 
-                                priceTextView.setText("" + total);
+                                priceTextView.setText(String.format("%.2f",total));
                              mAdapter.notifyDataSetChanged();
 
                             }
@@ -255,7 +236,7 @@ public class ShoppingList extends Fragment {
 
                                 total = total - number;
                                 productList.remove(position);
-                                priceTextView.setText("" + total);
+                                priceTextView.setText(String.format("%.2f",total));
 
                                 mAdapter.notifyDataSetChanged();
                             }

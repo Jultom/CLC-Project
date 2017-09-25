@@ -42,7 +42,7 @@
         android:layout_toEndOf="@+id/edit_product_price"
         android:ems="5"
         android:imeOptions="actionDone"
-        android:inputType="number"
+        android:inputType="numberDecimal"
         android:singleLine="true" />
 
 </RelativeLayout>
